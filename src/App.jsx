@@ -3,6 +3,7 @@ import { Routes,Route } from "react-router-dom";
 import Landing from './pages/Landing';
 import Register from './pages/Register';
 import Login from './pages/Login';
+import Onboarding from './components/Onboarding';
 
 const App = () => {
   return (
@@ -11,6 +12,7 @@ const App = () => {
         <Route path='/' element = {<Landing />}/>
         <Route path='/register' element = {<Register />}/>
         <Route path='/login' element = {<Login />}/>
+        <Route path='/onboarding' element = {<Onboarding />}/>
       </Routes>
     </div>
   )
