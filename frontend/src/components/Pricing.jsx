@@ -12,31 +12,30 @@ const Pricing = () => {
 
   const pricingTiers = [
     {
-      name: "Startup",
-      description: "Perfect for startups and small businesses.",
-      price: isAnnual ? "$299" : "$349",
-      billingPeriod: isAnnual ? "/month, billed annually" : "/month",
-      cta: "Start Free Trial",
+      name: "Free",
+      description: "Get started with basic features at no cost.",
+      price: "₹0",
+      billingPeriod: "/month",
+      cta: "Sign Up for Free",
       features: [
-        "Up to $50,000 monthly cloud spend",
+        "Up to ₹10,000 monthly cloud spend",
         "Cost visualization and tracking",
         "Basic optimization recommendations",
         "Email alerts for budget overruns",
-        "30-day data retention",
-        "Email support",
+        "7-day data retention",
+        "Community support",
         "1 cloud account connection",
-        "Weekly reports",
       ],
     },
     {
       name: "Business",
       description: "Ideal for growing companies with multiple cloud accounts.",
-      price: isAnnual ? "$799" : "$899",
+      price: isAnnual ? "₹799" : "₹899",
       billingPeriod: isAnnual ? "/month, billed annually" : "/month",
       cta: "Start Free Trial",
       popular: true,
       features: [
-        "Up to $200,000 monthly cloud spend",
+        "Up to ₹200,000 monthly cloud spend",
         "Advanced cost allocation and tagging",
         "AI-powered optimization engine",
         "Automated resource scheduling",
@@ -66,8 +65,8 @@ const Pricing = () => {
   ];
 
   return (
-    <section id="pricing" className="py-20 bg-dark-300 text-white">
-      <div className="container-custom">
+    <section id="pricing" className="py-20 text-white bg-[#0f172a]">
+      <div className="container-custom px-4 mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -75,8 +74,7 @@ const Pricing = () => {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Simple,{" "}
-            <span className="text-[#0EA5E9]">Transparent Pricing</span>
+            Simple, <span className="text-[#0EA5E9]">Transparent Pricing</span>
           </h2>
           <p className="text-lg text-gray-400 max-w-3xl mx-auto mb-8">
             Plans that scale with your cloud spending. Typically, customers save
@@ -91,14 +89,14 @@ const Pricing = () => {
             </span>
             <button
               onClick={() => setIsAnnual(!isAnnual)}
-              className="relative inline-flex h-6 w-12 items-center rounded-full bg-dark-100"
+              className="relative inline-flex h-6 w-12 items-center rounded-full bg-gray-700 transition-colors duration-300"
             >
               <span className="sr-only">Toggle billing period</span>
               <span
-                className={`inline-block h-4 w-4 rounded-full bg-primary-500 transition-transform ${
+                className={`inline-block h-4 w-4 transform rounded-full bg-[#0EA5E9] transition-transform duration-300 ${
                   isAnnual ? "translate-x-1" : "translate-x-7"
                 }`}
-              ></span>
+              />
             </button>
             <span
               className={`text-sm ${
@@ -110,21 +108,17 @@ const Pricing = () => {
           </div>
         </motion.div>
 
-        <div ref={ref} className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div ref={ref} className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
           {pricingTiers.map((tier, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className={`card relative overflow-hidden ${
-                tier.popular
-                  ? "border-primary-500 shadow-lg shadow-primary-500/10"
-                  : ""
-              }`}
+              className="relative border border-gray-700 rounded-xl shadow-lg p-6 bg-[#0f172a] hover:shadow-2xl transition-all duration-300"
             >
               {tier.popular && (
-                <div className="absolute -right-12 top-6 bg-primary-500 text-white text-xs px-12 py-1 rotate-45">
+                <div className="absolute top-4 right-[-48px] rotate-40 rounded-full bg-[#0EA5E9] text-white text-xs font-semibold px-16 py-1 shadow-lg">
                   Most Popular
                 </div>
               )}
@@ -139,18 +133,20 @@ const Pricing = () => {
 
               <a
                 href="#"
-                className={`btn mb-8 w-full ${
-                  tier.popular ? "btn-primary" : "btn-outline"
+                className={`block w-full py-2 text-center rounded-md font-semibold transition-all duration-300 mb-8 ${
+                  tier.popular
+                    ? "bg-[#0EA5E9] text-white hover:bg-[#0284c7]"
+                    : "border border-gray-600 text-white hover:bg-gray-800"
                 }`}
               >
                 {tier.cta}
               </a>
 
-              <ul className="space-y-4">
+              <ul className="space-y-4 text-sm">
                 {tier.features.map((feature, i) => (
-                  <li key={i} className="flex">
-                    <Check className="h-5 w-5 text-primary-500 mr-3 flex-shrink-0" />
-                    <span className="text-gray-300">{feature}</span>
+                  <li key={i} className="flex items-start text-gray-300">
+                    <Check className="h-5 w-5 text-[#0EA5E9] mr-3 mt-0.5 flex-shrink-0" />
+                    <span>{feature}</span>
                   </li>
                 ))}
               </ul>
@@ -166,8 +162,8 @@ const Pricing = () => {
         >
           <p className="text-gray-400 flex items-center justify-center">
             <HelpCircle className="h-4 w-4 mr-2" />
-            Not sure which plan is right for you?{" "}
-            <a href="#" className="text-primary-500 ml-1 hover:underline">
+            Not sure which plan is right for you?
+            <a href="#" className="text-[#0EA5E9] ml-1 hover:underline">
               Talk to our experts
             </a>
           </p>
