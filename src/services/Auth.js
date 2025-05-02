@@ -3,6 +3,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   updateProfile,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 
 class AuthService {
@@ -24,6 +25,22 @@ class AuthService {
       await updateProfile(user, {
         displayName: name,
       });
+
+      return user;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async loginAccount(loginData) {
+    let { email, password } = loginData;
+    try {
+      let userCredential = await signInWithEmailAndPassword(
+        this.auth,
+        email,
+        password
+      );
+      let user = userCredential.user;
 
       return user;
     } catch (error) {
