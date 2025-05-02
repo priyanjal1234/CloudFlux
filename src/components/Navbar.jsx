@@ -33,7 +33,7 @@ export const Navbar = () => {
             <a href="#" className="flex items-center space-x-2">
               <BarChart className="h-8 w-8 text-[#0EA5E9]" />
 
-              <span className="font-bold text-xl text-white">CloudCost</span>
+              <span className="font-bold text-xl text-white">CloudFlux</span>
             </a>
           </div>
 

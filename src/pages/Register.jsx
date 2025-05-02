@@ -77,7 +77,7 @@ const Register = () => {
           <div className="flex justify-center mb-6">
             <Link to="/" className="flex items-center space-x-2">
               <BarChart3 className="h-8 w-8 text-[#0EA5E9]" />
-              <span className="text-2xl font-bold text-white">CloudCost</span>
+              <span className="text-2xl font-bold text-white">CloudFlux</span>
             </Link>
           </div>
 

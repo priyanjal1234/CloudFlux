@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Check, HelpCircle } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Pricing = () => {
   const [isAnnual, setIsAnnual] = useState(true);
@@ -131,8 +132,8 @@ const Pricing = () => {
                 <span className="text-gray-400 ml-1">{tier.billingPeriod}</span>
               </div>
 
-              <a
-                href="#"
+              <Link
+                to={tier.cta === "Sign Up for Free" && "/register"}
                 className={`block w-full py-2 text-center rounded-md font-semibold transition-all duration-300 mb-8 ${
                   tier.popular
                     ? "bg-[#0EA5E9] text-white hover:bg-[#0284c7]"
@@ -140,7 +141,7 @@ const Pricing = () => {
                 }`}
               >
                 {tier.cta}
-              </a>
+              </Link>
 
               <ul className="space-y-4 text-sm">
                 {tier.features.map((feature, i) => (
