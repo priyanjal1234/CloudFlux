@@ -58,8 +58,20 @@ const Login = () => {
       dispatch(setLoggedin(true));
       navigate("/dashboard");
     } catch (error) {
-      setisLoading(false)
+      setisLoading(false);
       toast.error(error.message);
+    }
+  }
+
+  async function handleGoogleOauth() {
+    try {
+      await authService.googleLogin();
+
+      toast.success("Successfully Logged in with Google");
+      dispatch(setLoggedin(true));
+      navigate("/dashboard");
+    } catch (error) {
+      toast.error(error?.message);
     }
   }
 
@@ -72,18 +84,31 @@ const Login = () => {
           transition={{ duration: 0.5 }}
           className="bg-[#141B2D] p-10 rounded-2xl border border-dark-200 shadow-2xl"
         >
-          {/* Logo */}
-          <div className="flex justify-center mb-6">
-            <Link to="/" className="flex items-center space-x-2">
-              <BarChart3 className="h-8 w-8 text-[#0EA5E9]" />
-              <span className="text-2xl font-bold text-white">CloudFlux</span>
-            </Link>
-          </div>
-
           {/* Heading */}
           <h2 className="text-2xl font-bold text-center text-white mb-8">
             Login Your Account
           </h2>
+
+          <button
+            onClick={handleGoogleOauth}
+            className="w-full flex items-center justify-center space-x-2 bg-[#172033] text-white hover:bg-[#28334c] font-medium rounded-md px-4 py-2 mb-6  transition-colors duration-200"
+          >
+            <img
+              src="https://www.google.com/favicon.ico"
+              alt="Google"
+              className="w-5 h-5"
+            />
+            <span>Login with Google</span>
+          </button>
+
+          <div className="relative mb-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full "></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 text-md bg-dark-300 text-gray-400">Or</span>
+            </div>
+          </div>
 
           {/* Form */}
           <form onSubmit={handleLoginSubmit} className="space-y-6">

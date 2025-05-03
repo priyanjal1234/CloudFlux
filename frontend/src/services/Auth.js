@@ -4,6 +4,8 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
   signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
 
 class AuthService {
@@ -43,6 +45,17 @@ class AuthService {
       let user = userCredential.user;
 
       return user;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async googleLogin() {
+    try {
+      let provider = new GoogleAuthProvider();
+      let result = await signInWithPopup(this.auth, provider);
+
+      return result.user;
     } catch (error) {
       throw error;
     }

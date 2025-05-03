@@ -1,0 +1,21 @@
+Features where Firebase is a good fit -->
+
+1. Login/Signup (✅ Firebase Auth)
+Firebase Authentication provides built-in support for Google, GitHub, email/password, and social logins.
+
+Easy to implement and secure.
+
+5. Alerts & Notifications (✅ Firebase Cloud Messaging)
+Firebase Cloud Messaging (FCM) is great for push notifications to web and mobile users.
+
+Can trigger notifications based on Firestore updates.
+
+6. Reports (PDF/Email) (✅ Firebase Functions + Firestore Triggers)
+Firebase Cloud Functions can generate PDF reports and send email reports using third-party services (e.g., SendGrid, Nodemailer).
+
+Firestore triggers can automate report generation.
+
+8. User Billing for Your SaaS (✅ Firebase + Stripe)
+Firebase integrates well with Stripe for billing.
+
+Firebase Functions can listen for Stripe webhook events (e.g., payments, subscriptions).
