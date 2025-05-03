@@ -9,6 +9,7 @@ const AwsSteps = ({ setStep, selectedProvider }) => {
   const [keys, setkeys] = useState({
     accessKeyId: "",
     secretAccessKey: "",
+    region: ""
   });
 
   const awsPolicy = `{
@@ -163,6 +164,20 @@ const AwsSteps = ({ setStep, selectedProvider }) => {
               name="secretAccessKey"
             />
             {errors.secretAccessKey && <p className="text-red-500">{errors.secretAccessKey}</p>}
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              Region 
+            </label>
+            <input
+              type="text"
+              className="block w-full px-3 py-2 bg-[#12192A]  rounded-md text-white outline-none"
+              placeholder="Enter region"
+              value={keys.region}
+              onChange={handleKeysChange}
+              name="region"
+            />
+            {errors.region && <p className="text-red-500">{errors.region}</p>}
           </div>
         </div>
 

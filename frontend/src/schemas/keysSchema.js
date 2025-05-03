@@ -19,6 +19,8 @@ const keysSchema = z.object({
       "Secret Access Key must be 40 characters long and base64 encoded"
     )
     .trim(),
+
+  region: z.string().min(3, "Region should be atleast 3 characters long"),
 });
 
 export default keysSchema;
