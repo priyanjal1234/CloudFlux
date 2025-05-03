@@ -19,3 +19,5 @@ Firestore triggers can automate report generation.
 Firebase integrates well with Stripe for billing.
 
 Firebase Functions can listen for Stripe webhook events (e.g., payments, subscriptions).
+
+
