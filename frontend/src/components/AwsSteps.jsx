@@ -1,13 +1,15 @@
 import { ChevronRight } from "lucide-react";
 import React, { useState } from "react";
+import keysSchema from "../schemas/keysSchema";
 
-const AwsSteps = ({ setStep }) => {
+const AwsSteps = ({ setStep, selectedProvider }) => {
   const [isCopied, setisCopied] = useState(false);
   const [isConnecting, setisConnecting] = useState(false);
+  const [errors, seterrors] = useState({});
   const [keys, setkeys] = useState({
     accessKeyId: "",
-    secretAccessKey: ""
-  })
+    secretAccessKey: "",
+  });
 
   const awsPolicy = `{
   "Version": "2012-10-17",
@@ -75,11 +77,22 @@ const AwsSteps = ({ setStep }) => {
     },
   ];
 
-
   function handleKeysChange(e) {
-    let {name,value} = e.target 
-    setkeys(prev => ({...prev,[name]: value}))
-    
+    let { name, value } = e.target;
+    setkeys((prev) => ({ ...prev, [name]: value }));
+
+    try {
+      keysSchema.pick({ [name]: true }).parse({ [name]: value });
+      seterrors({});
+    } catch (error) {
+      if (error.errors) {
+        const fieldErrors = error.errors.reduce((acc, err) => {
+          acc[err.path[0]] = err.message;
+          return acc;
+        }, {});
+        seterrors(fieldErrors);
+      }
+    }
   }
 
   return (
@@ -133,6 +146,9 @@ const AwsSteps = ({ setStep }) => {
               onChange={handleKeysChange}
               name="accessKeyId"
             />
+            {errors.accessKeyId && (
+              <p className="text-red-500">{errors.accessKeyId}</p>
+            )}
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-300 mb-2">
@@ -146,6 +162,7 @@ const AwsSteps = ({ setStep }) => {
               onChange={handleKeysChange}
               name="secretAccessKey"
             />
+            {errors.secretAccessKey && <p className="text-red-500">{errors.secretAccessKey}</p>}
           </div>
         </div>
 
@@ -157,7 +174,9 @@ const AwsSteps = ({ setStep }) => {
             Back
           </button>
           <button
-            disabled={isConnecting || !keys.accessKeyId || !keys.secretAccessKey}
+            disabled={
+              isConnecting || !keys.accessKeyId || !keys.secretAccessKey
+            }
             className={`w-[90%] ${
               !keys.accessKeyId || !keys.secretAccessKey
                 ? "bg-[#11608B] cursor-not-allowed"
@@ -190,7 +209,8 @@ const AwsSteps = ({ setStep }) => {
               </span>
             ) : (
               <span className="   flex  items-center">
-                Connect AWS <ChevronRight className="ml-2 h-5 w-5" />
+                Connect {selectedProvider.toUpperCase()}{" "}
+                <ChevronRight className="ml-2 h-5 w-5" />
               </span>
             )}
           </button>

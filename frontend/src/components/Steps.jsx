@@ -6,7 +6,7 @@ const Steps = ({selectedProvider,setStep}) => {
    if(selectedProvider === "aws") {
     return (
         <div className='flex justify-center w-full p-10'>
-            <AwsSteps setStep = {setStep} />
+            <AwsSteps setStep = {setStep} selectedProvider = {selectedProvider} />
         </div>
     )
    }
