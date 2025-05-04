@@ -15,8 +15,22 @@ class CloudService {
       throw error;
     }
   }
+
+  async checkConnection(data) {
+    try {
+      return await this.api.post(
+        `${this.baseUrl}/connection/check-connection`,
+        data,
+        {
+          withCredentials: true,
+        }
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 let cloudService = new CloudService();
 
-export default cloudService
+export default cloudService;

@@ -127,6 +127,7 @@ const AwsSteps = ({ setStep, selectedProvider }) => {
     let credData = {
       nameOfUser: user?.name,
       email: user?.email,
+      provider: selectedProvider,
       accessKeyId: keys.accessKeyId,
       secretAccessKey: keys.secretAccessKey,
       region: keys.region

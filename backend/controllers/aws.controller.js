@@ -4,7 +4,7 @@ import credModel from "../models/cred.model.js";
 
 const connectToAWS = async function (req, res) {
   try {
-    let { nameOfUser, email, accessKeyId, secretAccessKey, region } = req.body;
+    let { nameOfUser, email, accessKeyId, secretAccessKey, region,provider } = req.body;
 
     if (!accessKeyId || !secretAccessKey || !region) {
       return res.status(400).json({ message: "All Fields are required" });
@@ -28,7 +28,8 @@ const connectToAWS = async function (req, res) {
         nameOfUser,
         email,
         accessKeyId: encAccessKeyId,
-        secretAccessKey: enSecretAccessKey     
+        secretAccessKey: enSecretAccessKey,
+        provider   
       })
       return res
         .status(200)
@@ -47,5 +48,7 @@ const connectToAWS = async function (req, res) {
     });
   }
 };
+
+
 
 export { connectToAWS };

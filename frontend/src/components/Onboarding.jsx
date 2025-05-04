@@ -3,8 +3,11 @@ import { motion } from "framer-motion";
 import { Cloud, ChevronRight, AlertCircle } from "lucide-react";
 import Steps from "./Steps";
 import authService from "../services/Auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../redux/reducers/UserReducer";
+import cloudService from "../services/Cloud";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const providers = [
   {
@@ -31,7 +34,12 @@ const Onboarding = () => {
   const [step, setStep] = useState("provider");
   const [selectedProvider, setSelectedProvider] = useState(null);
   const [isConnecting, setIsConnecting] = useState(false);
+  const [loading, setloading] = useState(false)
   let dispatch = useDispatch();
+
+  let { user } = useSelector((state) => state.user);
+
+  let navigate = useNavigate();
 
   useEffect(() => {
     function fetchLoggedinUser() {
@@ -39,7 +47,6 @@ const Onboarding = () => {
         authService
           .getLoggedinUser()
           .then(function (user) {
-           
             dispatch(setUser(user));
           })
 
@@ -53,9 +60,37 @@ const Onboarding = () => {
     fetchLoggedinUser();
   }, []);
 
-  function handleProviderSelect(providerId) {
+  async function handleProviderSelect(providerId) {
     setSelectedProvider(providerId);
-    setStep("connect");
+    setloading(true)
+
+    new Promise(resolve => setTimeout(resolve, 2000));
+
+    try {
+      let data = {
+        name: user?.name,
+        provider: providerId,
+      };
+
+      let response = await cloudService.checkConnection(data);
+      
+      if (
+        response?.data?.message ===
+        "Credentials with the provided name and provider already exist"
+      ) {
+        setloading(false)
+        navigate("/dashboard");
+      } else if (
+        response?.data?.message ===
+        "Credentials with the provided name and provider are not found"
+      ) {
+        setloading(false)
+        setStep("connect");
+      }
+    } catch (error) {
+      setloading(false)
+      toast.error(error?.message);
+    }
   }
 
   function handleConnect() {
@@ -111,6 +146,11 @@ const Onboarding = () => {
                   </p>
                 </motion.button>
               ))}
+              {
+                loading && <div className="w-full justify-center">
+                  <h1 className="text-xl">Redirecting...</h1>
+                </div>
+              }
             </div>
           </div>
         ) : (

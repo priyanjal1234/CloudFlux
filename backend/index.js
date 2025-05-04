@@ -9,6 +9,7 @@ db()
 
 // Route Imports
 import awsRouter from './routes/aws.router.js'
+import connectionRouter from './routes/connection.router.js'
 
 const app = express()
 
@@ -20,6 +21,8 @@ app.use(cors({
 }))
 
 app.use("/api/aws",awsRouter)
+
+app.use("/api/connection",connectionRouter)
 
 const port = process.env.PORT || 4000
 app.listen(port,function() {
