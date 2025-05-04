@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import AwsSteps from './AwsSteps'
+import authService from '../services/Auth'
 
 const Steps = ({selectedProvider,setStep}) => {
     
+    
+
    if(selectedProvider === "aws") {
     return (
         <div className='flex justify-center w-full p-10'>

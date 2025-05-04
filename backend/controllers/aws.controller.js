@@ -1,8 +1,10 @@
 import { STSClient, GetCallerIdentityCommand } from "@aws-sdk/client-sts";
+import { encrypt } from "../utils/encryptKeys.js";
+import credModel from "../models/cred.model.js";
 
 const connectToAWS = async function (req, res) {
   try {
-    let { accessKeyId, secretAccessKey, region } = req.body;
+    let { nameOfUser, email, accessKeyId, secretAccessKey, region } = req.body;
 
     if (!accessKeyId || !secretAccessKey || !region) {
       return res.status(400).json({ message: "All Fields are required" });
@@ -20,7 +22,17 @@ const connectToAWS = async function (req, res) {
     const response = await stsClient.send(command);
 
     if (response) {
-      return res.status(200).json({ success: true, identity: response });
+      const encAccessKeyId = encrypt(accessKeyId);
+      const enSecretAccessKey = encrypt(secretAccessKey);
+      await credModel.create({
+        nameOfUser,
+        email,
+        accessKeyId: encAccessKeyId,
+        secretAccessKey: enSecretAccessKey     
+      })
+      return res
+        .status(200)
+        .json({ success: true, message: "Credentials are valid" });
     } else {
       return res
         .status(401)

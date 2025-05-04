@@ -56,12 +56,14 @@ const Login = () => {
       setisLoading(false);
       toast.success("Login Success");
       dispatch(setLoggedin(true));
-      navigate("/onboarding");
+      navigate("/dashboard");
     } catch (error) {
       setisLoading(false);
       toast.error(error.message);
     }
   }
+
+  
 
   async function handleGoogleOauth() {
     try {

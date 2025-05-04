@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Cloud, ChevronRight, AlertCircle } from "lucide-react";
 import Steps from "./Steps";
+import authService from "../services/Auth";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/reducers/UserReducer";
 
 const providers = [
   {
@@ -28,7 +31,27 @@ const Onboarding = () => {
   const [step, setStep] = useState("provider");
   const [selectedProvider, setSelectedProvider] = useState(null);
   const [isConnecting, setIsConnecting] = useState(false);
-  
+  let dispatch = useDispatch();
+
+  useEffect(() => {
+    function fetchLoggedinUser() {
+      try {
+        authService
+          .getLoggedinUser()
+          .then(function (user) {
+           
+            dispatch(setUser(user));
+          })
+
+          .catch((err) => {
+            console.error("Error fetching user:", err.message);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchLoggedinUser();
+  }, []);
 
   function handleProviderSelect(providerId) {
     setSelectedProvider(providerId);
@@ -91,7 +114,7 @@ const Onboarding = () => {
             </div>
           </div>
         ) : (
-          <Steps selectedProvider = {selectedProvider} setStep = {setStep}/>
+          <Steps selectedProvider={selectedProvider} setStep={setStep} />
         )}
       </motion.div>
     </div>

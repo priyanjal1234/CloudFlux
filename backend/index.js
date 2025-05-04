@@ -3,6 +3,9 @@ dotenv.config()
 
 import express from 'express'
 import cors from 'cors'
+import db from './config/db.js'
+
+db()
 
 // Route Imports
 import awsRouter from './routes/aws.router.js'

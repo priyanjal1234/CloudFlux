@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
+  onAuthStateChanged,
 } from "firebase/auth";
 
 class AuthService {
@@ -56,6 +57,25 @@ class AuthService {
       let result = await signInWithPopup(this.auth, provider);
 
       return result.user;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  getLoggedinUser() {
+    try {
+      return new Promise((resolve, reject) => {
+        onAuthStateChanged(this.auth, function (currentUser) {
+          if (currentUser) {
+            let newUser = {};
+            newUser.name = currentUser.displayName;
+            newUser.email = currentUser.email;
+            resolve(newUser);
+          } else {
+            reject(new Error("No Logged in User"));
+          }
+        });
+      });
     } catch (error) {
       throw error;
     }

@@ -12,9 +12,12 @@ export const UserSlice = createSlice({
     setLoggedin: function (state, action) {
       state.isLoggedin = action.payload;
     },
+    setUser: function(state,action) {
+      state.user = action.payload
+    }
   },
 });
 
 export default UserSlice.reducer;
 
-export const { setLoggedin } = UserSlice.actions;
+export const { setLoggedin,setUser } = UserSlice.actions;
