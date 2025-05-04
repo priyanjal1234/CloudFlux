@@ -70,7 +70,7 @@ const Register = () => {
 
       toast.success("Successfully Signed Up with Google");
       dispatch(setLoggedin(true));
-      navigate("/dashboard");
+      navigate("/onboarding");
     } catch (error) {
       toast.error(error?.message);
     }

@@ -1,8 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ChevronRight, DollarSign, TrendingDown, Cloud } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
+  let navigate = useNavigate()
   return (
     <section id="hero" className="relative  pt-32 pb-24 md:pt-40 md:pb-32 bg-[#0D1117] text-white overflow-hidden">
       <div className="container mx-auto px-6 text-center">
@@ -45,12 +47,10 @@ const Hero = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
         >
-          <a href="#" className="inline-flex items-center justify-center px-6 py-3 bg-[#0ea5e9] text-white rounded-md font-medium hover:bg-[#0284c7] transition">
-            Start Free Trial <ChevronRight className="ml-2 h-4 w-4" />
-          </a>
-          <a href="#features" className="inline-flex items-center justify-center px-6 py-3 border border-gray-600 text-white rounded-md font-medium hover:bg-gray-800 transition">
-            See How It Works
-          </a>
+          <button onClick={() => navigate("/dashboard")} className="inline-flex items-center justify-center px-6 py-3 bg-[#0ea5e9] text-white rounded-md font-medium hover:bg-[#0284c7] transition">
+            Get Started <ChevronRight className="ml-2 h-4 w-4" />
+          </button>
+          
         </motion.div>
 
         {/* Stats Section */}

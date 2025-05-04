@@ -69,7 +69,7 @@ const Login = () => {
 
       toast.success("Successfully Logged in with Google");
       dispatch(setLoggedin(true));
-      navigate("/dashboard");
+      navigate("/onboarding");
     } catch (error) {
       toast.error(error?.message);
     }
