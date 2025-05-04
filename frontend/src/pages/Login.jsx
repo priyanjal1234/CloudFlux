@@ -56,7 +56,7 @@ const Login = () => {
       setisLoading(false);
       toast.success("Login Success");
       dispatch(setLoggedin(true));
-      navigate("/dashboard");
+      navigate("/onboarding");
     } catch (error) {
       setisLoading(false);
       toast.error(error.message);

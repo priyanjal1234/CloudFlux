@@ -17,6 +17,7 @@ class AuthService {
 
   async createAccount(registerData) {
     let { name, email, password } = registerData;
+
     try {
       let userCredential = await createUserWithEmailAndPassword(
         this.auth,

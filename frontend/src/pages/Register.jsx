@@ -52,6 +52,13 @@ const Register = () => {
     e.preventDefault();
     setisLoading(true);
 
+    if (!register.name) {
+      
+      toast.error("Name is required");
+      setisLoading(false)
+      return;
+    }
+
     try {
       await authService.createAccount(register);
       setisLoading(false);
